@@ -56,20 +56,39 @@ void test_02_02() {
     std::cout << "add(1, 2.0) = " << add(1, 2.0) << std::endl;
     std::cout << "add(2) = " << add(2) << std::endl;
     std::cout << "add(1, 2, 3) = " << add(1, 2, 3) << std::endl;
-
 }
 
+int gNum = 1;
+const int gcNum = 20;
+
 void demo_02_01() {
-    char arr0[6] = {'a', 'b', 'c', 'd', 'e', '\0'};
-    char arr1[] = "elysian";
-    std::cout << arr0 << std::endl;
-    std::cout << arr1 << std::endl;
-    const char *ps="aa";
-    char  *pstr=new char[std::strlen(ps)+1];
-    std::strcpy(pstr,ps);
-    std::cout << pstr << std::endl;
-    const char *p=new char[6]{'f', 'g', 'h', 'i', 'j', '\0'};
-    std::cout << p << std::endl;
+    //内存布局
+    const char *ps = "aa";
+    const int cNum = 0;//栈
+    static int sNum = 1;//全局/静态
+    char arr0[6] = {'a', 'b', 'c', 'd', 'e', '\0'};//栈
+    char arr1[] = "elysian";//栈
+    std::cout << "&arr1--" << &arr1 << std::endl;
+    std::cout << "&arr0--" << &arr0 << std::endl;
+    std::cout << "&cNum--" << &cNum << std::endl;
+    std::cout << "arr0:" << arr0 << std::endl;
+    std::cout << "arr1:" << arr1 << std::endl;
+    char *pstr = new char[std::strlen(ps) + 1];
+    int *p2 = new int(10);
+    std::strcpy(pstr, ps);
+    std::cout << "pstr:" << pstr << std::endl;
+    const char *p = new char[6]{'f', 'g', 'h', 'i', 'j', '\0'};
+    std::cout << "&pstr--" << &pstr << std::endl;
+    std::cout << "&p2--" << p2 << std::endl;
+    std::cout << "&p--" << p << std::endl;
+    std::cout << "&sNum--" << &sNum << std::endl;
+    std::cout << "&gNum--" << &gNum << std::endl;
+    std::cout << "p:" << p << std::endl;
+    std::cout << static_cast<void *>(const_cast<char *>(pstr)) << std::endl;
+    std::cout << "&gcNum--" << &gcNum << std::endl;
     delete[] pstr;
+    delete p2;
     delete[] p;
+    std::cout<<"---"<<std::endl;
+
 }
