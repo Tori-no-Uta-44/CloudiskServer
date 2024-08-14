@@ -18,4 +18,8 @@ void test_02_02();
 
 void demo_01_01();
 
+void demo_01_02();
+
+void demo_02_01();
+
 #endif //DAY01_H

@@ -2,7 +2,7 @@
 #include <iostream>
 
 int main() {
-    demo_01_01();
+    demo_02_01();
     std::cout << "Hello World!" << std::endl;
     return 0;
 }

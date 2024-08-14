@@ -34,9 +34,30 @@ void test_01_02() {
 }
 
 void demo_01_01() {
-    int arr[5] = {1, 2, 3, 4, 5};
+    //数组指针,存放元素为指针的数组
+    int arr[5] = {1, 2, 3};
     std::cout << arr << std::endl;
     std::cout << &arr << std::endl;
     std::cout << arr + 1 << std::endl;
     std::cout << &arr + 1 << std::endl;
+    std::cout << "---" << std::endl;
+    int (*p)[5] = &arr;
+    std::cout << p << std::endl;
+    std::cout << *p << std::endl;
+    std::cout << p + 1 << std::endl;
+    std::cout << *p + 1 << std::endl;
+    std::cout << "---" << std::endl;
+    for (int i = 0; i < 3; ++i) {
+        std::cout << arr[i] << "\t" << (*p)[i] << std::endl;
+    }
+    std::cout << "---" << std::endl;
+}
+
+void demo_01_02() {
+    //指针数组
+    int num1 = 1, num2 = 2;
+    int *arr[2] = {&num1, &num2};
+    for (int i = 0; i < 2; ++i) {
+        std::cout << *arr[i] << std::endl;
+    }
 }
