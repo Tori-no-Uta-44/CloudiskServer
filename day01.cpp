@@ -32,3 +32,8 @@ void test_01_02() {
 	delete[] arr;
 	arr = nullptr;
 }
+
+void demo_01_01(){
+    int arr[5]={1,2,3,4,5};
+
+}
