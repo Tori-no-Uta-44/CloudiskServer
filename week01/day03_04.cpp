@@ -16,7 +16,7 @@ public:
         i = val;
     }
 
-    void display() {
+    void display() const {
         std::cout << i << std::endl;
     }
 
@@ -34,108 +34,93 @@ void test04_01() {
 
 class Student {
 public:
-    int id;
-    char *name;
-    int age;
-    double weight;
-    double height;
-
-    Student() {}
-
-    Student(int id, char *name, int age, double weight, double height) : id(id),
-                                                                         name(new char[std::strlen(name) + 1]()),
-                                                                         age(age), weight(weight), height(height) {
-        std::strcpy(this->name, name);
-    }
-
-    Student(const Student &student) : id(student.id), name(new char[std::strlen(student.name) + 1]()), age(student.age),
-                                      weight(student.weight), height(student.height) {
-        std::strcpy(this->name, student.name);
-    }
-
-    int getId() const {
-        return id;
-    }
-
-    void setId(int id) {
-        this->id = id;
-    }
-
-    char *getName() const {
-        return name;
-    }
-
-    void setName(char *name) {
-//        this->name = name;
-        if (this->name != nullptr) {
-            delete[] this->name;
-        }
-        this->name = new char[std::strlen(name) + 1]();
-        std::strcpy(this->name, name);
-    }
-
-    int getAge() const {
-        return age;
-    }
-
-    void setAge(int age) {
-        this->age = age;
-    }
-
-    double getWeight() const {
-        return weight;
-    }
-
-    void setWeight(double weight) {
-        this->weight = weight;
-    }
-
-    double getHeight() const {
-        return height;
-    }
-
-    void setHeight(double height) {
-        Student::height = height;
-    }
-
-    Student &operator=(const Student &student) {
-        if (this != &student) {
-            delete[] name;
-            name = new char[std::strlen(student.name) + 1]();
-            std::strcpy(name, student.name);
-            this->id = student.id;
-            this->age = student.age;
-            this->weight = student.weight;
-            this->height = student.height;
-        }
-        return *this;
-    }
-
-    void toString() const {
-        std::cout << "id:" << id << " name:" << name << " age:" << age << " weight:" << weight << " height:" << height
-                  << std::endl;
-    }
-
-    ~Student() {
-        if (name != nullptr) {
-            delete[] name;
-            name = nullptr;
-        }
-    }
+	int _id;
+	std::string* name;  // 使用指针，将 std::string 放在堆区
+	int age;
+	double weight;
+	double height;
+	
+	Student()=default;
+	
+	Student(int id, const std::string &name, int age, double weight, double height)
+			: _id(id), name(new std::string(name)), age(age), weight(weight), height(height) {}
+			
+	Student(const Student &student)
+			: _id(student._id), name(new std::string(*student.name)), age(student.age), weight(student.weight), height(student.height) {}
+			
+	Student &operator=(const Student &student) {
+		if (this != &student) {
+			delete name;  // 释放旧内存
+			name = new std::string(*student.name);  // 分配新内存并复制内容
+			_id = student._id;
+			age = student.age;
+			weight = student.weight;
+			height = student.height;
+		}
+		return *this;
+	}
+	
+	int getId() const {
+		return _id;
+	}
+	
+	void setId(int id) {
+		this->_id = id;
+	}
+	
+	std::string getName() const {
+		return *name;
+	}
+	
+	void setName(const std::string &newName) const {
+		*(this->name) = newName;
+	}
+	
+	int getAge() const {
+		return age;
+	}
+	
+	void setAge(int newAge) {
+		this->age = newAge;
+	}
+	
+	double getWeight() const {
+		return weight;
+	}
+	
+	void setWeight(double newWeight) {
+		this->weight = newWeight;
+	}
+	
+	double getHeight() const {
+		return height;
+	}
+	
+	void setHeight(double newHeight) {
+		this->height = newHeight;
+	}
+	
+	void toString() const {
+		std::cout << "id:" << _id << " name:" << *name << " age:" << age
+		          << " weight:" << weight << " height:" << height << std::endl;
+	}
+	
+	~Student() {
+		delete name;
+	}
 };
 
 void test04_02() {
-    Student student1 = Student(01, "张三", 18, 180, 180);
-    student1.toString();
-    Student student2 = Student(student1);
-    student2.setId(02);
-    student2.setName("王五");
-    student2.toString();
-    Student student3 = Student();
-    student3.setId(03);
-    student3.setName("李四");
-    student3.setAge(19);
-    student3.setWeight(190);
-    student3.setHeight(190);
-    student3.toString();
+	Student student1 = Student(1, "张三", 18, 180, 180);
+	student1.toString();
+	Student student2 = Student(student1);
+	student2.setId(2);
+	student2.toString();
+	Student student3 = Student();
+	student3.setId(3);
+	student3.setName("李四");
+	student3.setAge(19);
+	student3.setWeight(190);
+	student3.setHeight(190);
+	student3.toString();
 }
