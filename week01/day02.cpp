@@ -89,6 +89,4 @@ void demo_02_01() {
     delete[] pstr;
     delete p2;
     delete[] p;
-    std::cout<<"---"<<std::endl;
-
 }
