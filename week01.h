@@ -9,6 +9,7 @@
 #include <cstring>
 #include <cmath>
 #include <string>
+#include <vector>
 
 void test_01_01();
 
