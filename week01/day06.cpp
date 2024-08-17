@@ -42,3 +42,7 @@ void test_06_02() {
 		std::cout << std::endl;
 	}
 }
+
+void test_06_03() {
+
+}
