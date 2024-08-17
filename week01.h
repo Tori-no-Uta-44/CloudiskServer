@@ -9,6 +9,7 @@
 #include <cstring>
 #include <cmath>
 #include <string>
+#include <vector>
 
 void test_01_01();
 
@@ -40,4 +41,7 @@ void test_05_05();
 
 void test_05_06();
 
+void test_06_01();
+
+void test_06_02();
 #endif //DAY01_H
