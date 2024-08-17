@@ -54,7 +54,7 @@ public:
 	MyString& operator=(const MyString& rhs);
 	~MyString();
 	void toString() const;
-	size_t length() const;
+	[[nodiscard]] size_t length() const;
 	[[nodiscard]] const char* c_str() const;
 };
 
@@ -121,27 +121,27 @@ public:
 
 class Stack {
 public:
-	bool empty();
-	bool full();
+	[[nodiscard]] bool empty() const;
+	[[nodiscard]] bool full() const;
 	void push(int data);
 	void pop();
-	int top();
+	int top() const;
 
 	StackNode* stack_node;
 	int size;
 	int capacity;
 
-	Stack(int cap = 16) : stack_node(nullptr), size(0), capacity(cap) {
+	explicit Stack(int cap = 16) : stack_node(nullptr), size(0), capacity(cap) {
 	}
 
 	~Stack();
 };
 
-bool Stack::empty() {
+bool Stack::empty() const {
 	return size == 0;
 }
 
-bool Stack::full() {
+bool Stack::full() const {
 	return size == capacity;
 }
 
@@ -150,7 +150,7 @@ void Stack::push(int data) {
 		std::cout << "Stack is Full" << std::endl;
 		return;
 	}
-	StackNode* newNode = new StackNode;
+	auto* newNode = new StackNode;
 	newNode->val = data;
 	newNode->next = stack_node;
 	stack_node = newNode;
@@ -162,13 +162,13 @@ void Stack::pop() {
 		std::cout << "Stack is empty!" << std::endl;
 		return;
 	}
-	StackNode* temp = stack_node;
+	const StackNode* temp = stack_node;
 	stack_node = stack_node->next;
 	delete temp;
 	size--;
 }
 
-int Stack::top() {
+int Stack::top() const {
 	if (empty()) {
 		std::cout << "Stack is empty!" << std::endl;
 		return -1;
@@ -194,4 +194,8 @@ void test_06_04() {
 		std::cout << "Top: " << s.top() << std::endl;
 		s.pop();
 	}
+}
+
+void demo_06_01() {
+
 }
