@@ -92,12 +92,12 @@ size_t MyString::length() const {
 }
 
 const char* MyString::c_str() const {
-	const size_t len = strlen(_pstr);
-	char buffer[len + 1];
-	strcpy(buffer, _pstr);
-	buffer[len] = '\0';
-	char* p = buffer;
-	return p;
+	// const size_t len = strlen(_pstr);
+	// char buffer[len + 1];
+	// strcpy(buffer, _pstr);
+	// buffer[len] = '\0';
+	// char* p = buffer;
+	return _pstr;
 }
 
 void test_06_03() {
@@ -125,7 +125,7 @@ public:
 	[[nodiscard]] bool full() const;
 	void push(int data);
 	void pop();
-	int top() const;
+	[[nodiscard]] int top() const;
 
 	StackNode* stack_node;
 	int size;
