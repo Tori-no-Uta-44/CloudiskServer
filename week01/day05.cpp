@@ -2,6 +2,8 @@
 // Created by 李勃鋆 on 24-8-16.
 //
 
+#include <utility>
+
 #include "../week01.h"
 
 class S {
@@ -59,7 +61,7 @@ private:
 	double x;
 	double y;
 public:
-	P(int x = 0, int y = 0) : x(x), y(y) {
+	explicit P(int x = 0, int y = 0) : x(x), y(y) {
 		std::cout << "pc" << std::endl;
 	}
 	
@@ -67,11 +69,11 @@ public:
 		std::cout << "pco" << std::endl;
 	}
 	
-	double getX() const {
+	[[nodiscard]] double getX() const {
 		return x;
 	}
 	
-	double getY() const {
+	[[nodiscard]] double getY() const {
 		return y;
 	}
 };
@@ -106,7 +108,7 @@ void test_05_03() {
 
 class M {
 public:
-	M(int = 0) {
+	explicit M(int = 0) {
 		std::cout << i;
 	}
 	
@@ -128,7 +130,7 @@ void test_05_04() {
 	M m1 = M(1);
 	M m2 = M(2);
 	M m3 = m1;
-	m3 = 5;
+	m3 = m2;
 }
 
 class Point {
@@ -188,20 +190,22 @@ void test_05_05() {
 
 class Computer {
 private:
-	char *_brand;
+//	char *brand;
+	std::string *_brand;
 	double _price;
 	static Computer *pc;
 	
 	Computer() = default;
-	
-	Computer(const char *brand, double price) : _brand(new char[std::strlen(brand) + 1]()), _price(price) {
-		std::strcpy(this->_brand, brand);
-		std::cout << "(char*,double)" << std::endl;
-	}
+
+//Computer(const char *brand, double price) : brand(new char[std::strlen(brand) + 1]()), price(price) {
+//		std::strcpy(this->brand, brand);
+//		std::cout << "(char*,double)" << std::endl;
+//	}
+	Computer(const std::string &brand, double price) : _brand(new std::string(brand)), _price(price) {}
 	
 	~Computer() {
 		if (_brand != nullptr) {
-			delete[]_brand;
+			delete _brand;
 			_brand = nullptr;
 		}
 	}
@@ -217,16 +221,20 @@ public:
 		}
 		return pc;
 	}
-	
-	void set(char *brand, double price) {
-		delete[] this->_brand;
-		this->_brand = new char[std::strlen(brand) + 1]();
-		std::strcpy(this->_brand, brand);
+
+//	void set(char *brand, double price) {
+//		delete[] this->brand;
+//		this->brand = new char[std::strlen(brand) + 1]();
+//		std::strcpy(this->brand, brand);
+//		this->price = price;
+//	}
+	void set(std::string brand, double price) {
+		*_brand = std::move(brand);
 		this->_price = price;
 	}
 	
 	void toString() {
-		std::cout << _brand << "," << _price << std::endl;
+		std::cout << *_brand << "," << _price << std::endl;
 	}
 	
 	static void destroy() {

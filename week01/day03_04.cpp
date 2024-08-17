@@ -11,7 +11,7 @@ public:
         i = 0;
     };
 
-    Sample(int val) {
+    explicit Sample(int val) {
         std::cout << "二" << std::endl;
         i = val;
     }
@@ -60,7 +60,7 @@ public:
 		return *this;
 	}
 	
-	int getId() const {
+	[[nodiscard]] int getId() const {
 		return _id;
 	}
 	
@@ -68,7 +68,7 @@ public:
 		this->_id = id;
 	}
 	
-	std::string getName() const {
+	[[nodiscard]] std::string getName() const {
 		return *name;
 	}
 	
@@ -76,7 +76,7 @@ public:
 		*(this->name) = newName;
 	}
 	
-	int getAge() const {
+	[[nodiscard]] int getAge() const {
 		return age;
 	}
 	
@@ -84,7 +84,7 @@ public:
 		this->age = newAge;
 	}
 	
-	double getWeight() const {
+	[[nodiscard]] double getWeight() const {
 		return weight;
 	}
 	
@@ -92,7 +92,7 @@ public:
 		this->weight = newWeight;
 	}
 	
-	double getHeight() const {
+	[[nodiscard]] double getHeight() const {
 		return height;
 	}
 	
