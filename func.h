@@ -1,5 +1,5 @@
-#ifndef __WD_FUNC_H
-#define __WD_FUNC_H
+#ifndef WD_FUNC_H
+#define WD_FUNC_H
 
 #define _GNU_SOURCE
 #include <stdio.h>

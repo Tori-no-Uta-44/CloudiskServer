@@ -10,6 +10,10 @@
 #include <cmath>
 #include <string>
 #include <vector>
+#include <fstream>
+#include <cctype>
+
+using namespace std;
 
 void test_01_01();
 

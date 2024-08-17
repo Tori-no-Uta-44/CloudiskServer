@@ -11,4 +11,6 @@ add_executable(cpp01_02 main.cpp
         func.h
         week01/day05.cpp
         week01/day06.cpp
+        week2/day07.cpp
+        week02.h
 )

@@ -49,12 +49,19 @@ private:
 
 public:
 	MyString();
+
 	explicit MyString(const char* pstr);
+
 	MyString(const MyString& rhs);
+
 	MyString& operator=(const MyString& rhs);
+
 	~MyString();
+
 	void toString() const;
+
 	[[nodiscard]] size_t length() const;
+
 	[[nodiscard]] const char* c_str() const;
 };
 
@@ -122,16 +129,20 @@ public:
 class Stack {
 public:
 	[[nodiscard]] bool empty() const;
+
 	[[nodiscard]] bool full() const;
+
 	void push(int data);
+
 	void pop();
+
 	[[nodiscard]] int top() const;
 
 	StackNode* stack_node;
 	int size;
 	int capacity;
 
-	explicit Stack(int cap = 16) : stack_node(nullptr), size(0), capacity(cap) {
+	explicit Stack(const int cap = 16) : stack_node(nullptr), size(0), capacity(cap) {
 	}
 
 	~Stack();
@@ -145,7 +156,7 @@ bool Stack::full() const {
 	return size == capacity;
 }
 
-void Stack::push(int data) {
+void Stack::push(const int data) {
 	if (full()) {
 		std::cout << "Stack is Full" << std::endl;
 		return;
@@ -194,8 +205,4 @@ void test_06_04() {
 		std::cout << "Top: " << s.top() << std::endl;
 		s.pop();
 	}
-}
-
-void demo_06_01() {
-
 }
