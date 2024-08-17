@@ -44,4 +44,8 @@ void test_05_06();
 void test_06_01();
 
 void test_06_02();
+
+void test_06_03();
+
+void test_06_04();
 #endif //DAY01_H
