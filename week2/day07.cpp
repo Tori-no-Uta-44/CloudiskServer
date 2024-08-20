@@ -4,7 +4,7 @@
 #include "../week02.h"
 
 void test_07_01() {
-	std::string fileName = "../func.h";
+	const std::string fileName = "../func.h";
 	std::ifstream ifs(fileName);
 	std::string word;
 	while (ifs >> word) {
@@ -14,7 +14,7 @@ void test_07_01() {
 }
 
 void test_07_02() {
-	std::string fileName = "../func.h";
+	const std::string fileName = "../func.h";
 	std::ifstream stream(fileName);
 	std::string buffer;
 	while (getline(stream, buffer)) {
@@ -25,7 +25,7 @@ void test_07_02() {
 void test_07_03() {
 	ifstream stream("../func.h");
 	stream.seekg(0, ios::end);
-	long pos = stream.tellg();
+	const long pos = stream.tellg();
 	string buffer;
 	buffer.resize(pos);
 	stream.seekg(0);
@@ -75,17 +75,21 @@ void Dictionary::read(const string& fileName) {
 		std::cerr << "Failed to open the file." << std::endl;
 		return;
 	}
-	string buffer;
-	string word;
-	while (stream >> buffer) {
-		word.clear();
-		for (char& ch : buffer) {
-			if (isalpha(static_cast<unsigned char>(ch))) {
-				word.push_back(static_cast<char>(tolower(static_cast<unsigned char>(ch))));
+	string line; //一整行
+	string word; //处理后的
+	string tmp;
+	while (getline(stream, line)) {
+		istringstream buffer(line);
+		while (buffer >> tmp) {
+			word.clear();
+			for (char& ch : tmp) {
+				if (isalpha(static_cast<unsigned char>(ch))) {
+					word.push_back(static_cast<char>(tolower(static_cast<unsigned char>(ch))));
+				}
 			}
-		}
-		if (!word.empty()) {
-			insert(word);
+			if (!word.empty()) {
+				insert(word);
+			}
 		}
 	}
 	stream.close();
