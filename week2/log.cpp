@@ -14,7 +14,6 @@
 #include <log4cpp/BasicLayout.hh>
 #include <log4cpp/PropertyConfigurator.hh>
 using namespace log4cpp;
-#endif
 
 void test_08_01() {
 	Appender* appender1 = new OstreamAppender("console", &cout);
@@ -94,24 +93,20 @@ public:
 	friend void LogCrit(const std::string& buffer);
 
 	static Mylogger* getInstance() {
-#ifdef __linux__
 		if (p_log == nullptr) {
 			p_log = new Mylogger();
 		}
-#endif
+
 		return p_log;
 	}
 
 	static void destroyInstance() {
-#ifdef __linux__
 		delete p_log;
 		p_log = nullptr;
-#endif
 	}
 
 private:
 	Mylogger() {
-#ifdef __linux__
 		_appender = new log4cpp::OstreamAppender("console", &std::cout);
 		log4cpp::PatternLayout* layout = new log4cpp::PatternLayout();
 		layout->setConversionPattern("%d [%c] [%p] - %m%n");
@@ -120,126 +115,96 @@ private:
 		_category = &log4cpp::Category::getRoot();
 		_category->addAppender(_appender);
 		_category->setPriority(log4cpp::Priority::DEBUG); // 默认优先级设置为 DEBUG
-#endif
 	}
 
 	~Mylogger() {
-#ifdef __linux__
 		log4cpp::Category::shutdown();
-#endif
 	}
 
 	static void initSingleton() {
-#ifdef __linux__
 		p_log = new Mylogger();
-#endif
 	}
 
-#ifdef __linux__
+
 	log4cpp::Appender* _appender;
 	log4cpp::Category* _category;
-#endif
+
 	static Mylogger* p_log;
 };
 
-#ifdef __linux__
+
 Mylogger* Mylogger::p_log = nullptr;
-#endif
+
 
 // 日志记录方法实现
 void Mylogger::warn(const std::string& data) const {
-#ifdef __linux__
 	_category->warn(
 		"File: " + std::string(__FILE__) + ", Function: " + std::string(__func__) + ", Line: " +
 		std::to_string(__LINE__) + " - " + data);
-#endif
 }
 
 void Mylogger::error(const std::string& data) const {
-#ifdef __linux__
 	_category->error(
 		"File: " + std::string(__FILE__) + ", Function: " + std::string(__func__) + ", Line: " +
 		std::to_string(__LINE__) + " - " + data);
-#endif
 }
 
 void Mylogger::debug(const std::string& data) const {
-#ifdef __linux__
 	_category->debug(
 		"File: " + std::string(__FILE__) + ", Function: " + std::string(__func__) + ", Line: " +
 		std::to_string(__LINE__) + " - " + data);
-#endif
 }
 
 void Mylogger::info(const std::string& data) const {
-#ifdef __linux__
 	_category->info(
 		"File: " + std::string(__FILE__) + ", Function: " + std::string(__func__) + ", Line: " +
 		std::to_string(__LINE__) + " - " + data);
-#endif
 }
 
 void Mylogger::fatal(const std::string& data) const {
-#ifdef __linux__
 	_category->fatal(
 		"File: " + std::string(__FILE__) + ", Function: " + std::string(__func__) + ", Line: " +
 		std::to_string(__LINE__) + " - " + data);
-#endif
 }
 
 void Mylogger::crit(const std::string& data) const {
-#ifdef __linux__
 	_category->crit(
 		"File: " + std::string(__FILE__) + ", Function: " + std::string(__func__) + ", Line: " +
 		std::to_string(__LINE__) + " - " + data);
-#endif
 }
 
 // Log functions
 void LogInfo(const std::string& buffer) {
-#ifdef __linux__
 	const Mylogger* log = Mylogger::getInstance();
 	log->info(buffer);
-#endif
 }
 
 void LogError(const std::string& buffer) {
-#ifdef __linux__
 	const Mylogger* log = Mylogger::getInstance();
 	log->error(buffer);
-#endif
 }
 
 void LogWarn(const std::string& buffer) {
-#ifdef __linux__
 	const Mylogger* log = Mylogger::getInstance();
 	log->warn(buffer);
-#endif
 }
 
 void LogDebug(const std::string& buffer) {
-#ifdef __linux__
 	const Mylogger* log = Mylogger::getInstance();
 	log->debug(buffer);
-#endif
 }
 
 void LogFatal(const std::string& buffer) {
-#ifdef __linux__
 	const Mylogger* log = Mylogger::getInstance();
 	log->fatal(buffer);
-#endif
 }
 
 void LogCrit(const std::string& buffer) {
-#ifdef __linux__
 	const Mylogger* log = Mylogger::getInstance();
 	log->crit(buffer);
-#endif
 }
 
 void test_08_02() {
-#ifdef __linux__
 	const Mylogger* log = Mylogger::getInstance();
 	log->info("The log is an info message");
 	log->error("The log is an error message");
@@ -248,11 +213,9 @@ void test_08_02() {
 	log->warn("The log is a warn message");
 	log->debug("The log is a debug message");
 	Mylogger::destroyInstance();
-#endif
 }
 
 void test_08_03() {
-#ifdef __linux__
 	LogInfo("The log is info message");
 	LogError("The log is error message");
 	LogWarn("The log is warn message");
@@ -260,5 +223,5 @@ void test_08_03() {
 	LogFatal("The log is fatal message");
 	LogCrit("The log is critical message");
 	Mylogger::destroyInstance();
-#endif
 }
+#endif
