@@ -87,9 +87,9 @@ public:
 	// 	std::cout << p._data << "\t" << p._name << "\t" << p._tmp << endl;
 	// }
 
-	friend ostream& operator<<(ostream& out, Complex_test_09_02& p);
+	friend ostream& operator<<(ostream& out, const Complex_test_09_02& p);
 
-	friend iostream& operator>>(iostream& in, Complex_test_09_02& p);
+	friend istream& operator>>(istream& in, Complex_test_09_02& p);
 	void toString() const {
 		std::cout << _data << "\t" << _name << "\t" << _tmp << endl;
 	}
@@ -100,12 +100,12 @@ private:
 	double _tmp = 0.0;
 };
 
-ostream& operator<<(ostream& out, Complex_test_09_02& p) {
+ostream& operator<<(ostream& out, const Complex_test_09_02& p) {
 	out << "_data" << p._data << "\t" << p._name << "\t" << p._tmp;
 	return out;
 }
 
-iostream& operator>>(iostream& in, Complex_test_09_02& p) {
+istream& operator>>(istream& in, Complex_test_09_02& p) {
 	in>>p._name;
 	in>>p._data;
 	in>>p._tmp;

@@ -5,17 +5,17 @@
 
 void test_08_01() {
 	Appender* appender1 = new OstreamAppender("console", &cout);
-	PatternLayout* layout1 = new PatternLayout();
+	auto* layout1 = new PatternLayout();
 	layout1->setConversionPattern("%d %c [%p] %m%n");
 	appender1->setLayout(layout1);
 
 	Appender* appender2 = new FileAppender("default", "demo.log");
-	PatternLayout* layout2 = new PatternLayout();
+	auto* layout2 = new PatternLayout();
 	layout2->setConversionPattern("%d %c [%p] %m%n");
 	appender2->setLayout(layout2);
 
 	Appender* appender3 = new RollingFileAppender("rolling", "test.log", 1024 * 1024, 4);
-	PatternLayout* layout3 = new PatternLayout();
+	auto* layout3 = new PatternLayout();
 	layout3->setConversionPattern("%d %c [%p] %m%n");
 	appender3->setLayout(layout3);
 
@@ -96,7 +96,7 @@ public:
 private:
 	Mylogger() {
 		_appender = new log4cpp::OstreamAppender("console", &std::cout);
-		log4cpp::PatternLayout* layout = new log4cpp::PatternLayout();
+		auto* layout = new log4cpp::PatternLayout();
 		layout->setConversionPattern("%d [%c] [%p] - %m%n");
 		_appender->setLayout(layout);
 
@@ -245,4 +245,13 @@ void test_08_04() {
 	Point_test_08_04 p2(4.4, 1.6);
 	Line_test_08_04 l;
 	std::cout << l.distance(p1, p2) << endl;
+}
+
+class Log_demo_08_01 {
+public:
+
+};
+
+void demo_08_01() {
+
 }

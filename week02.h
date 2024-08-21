@@ -39,4 +39,8 @@ void test_demo_09_02();
 
 void demo_09_01();
 
+void demo_08_01();
+
+void test_10_01();
+
 #endif //WEEK02_H
