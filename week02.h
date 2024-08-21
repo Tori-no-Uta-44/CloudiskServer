@@ -5,6 +5,7 @@
 #ifndef WEEK02_H
 #define WEEK02_H
 #include "week01.h"
+#ifdef __linux__
 #include <log4cpp/OstreamAppender.hh>
 #include <log4cpp/FileAppender.hh>
 #include <log4cpp/RollingFileAppender.hh>
@@ -15,6 +16,7 @@
 #include <log4cpp/Layout.hh>
 #include <log4cpp/BasicLayout.hh>
 #include <log4cpp/PropertyConfigurator.hh>
+#endif
 using namespace log4cpp;
 
 void test_07_01();
