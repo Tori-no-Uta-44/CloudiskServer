@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.22)
 project(cpp01_02)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g")
 
 # 找到 PkgConfig
 find_package(PkgConfig REQUIRED)
@@ -30,6 +29,10 @@ add_executable(cpp01_02
         week02.h
         week2/day08.cpp
 )
+
+# 为可执行文件启用 ASan
+target_compile_options(cpp01_02 PRIVATE -fsanitize=address -g)
+target_link_options(cpp01_02 PRIVATE -fsanitize=address)
 
 # 链接 log4cpp 库到可执行文件
 target_link_libraries(cpp01_02 ${LOG4CPP_LIBRARIES})
