@@ -12,6 +12,7 @@
 #include <vector>
 #include <fstream>
 #include <cctype>
+#include <sstream>
 
 using namespace std;
 

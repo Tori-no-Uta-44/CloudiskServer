@@ -24,6 +24,7 @@ add_executable(cpp01_02
         week2/day07.cpp
         week02.h
         week2/day08.cpp
+        week2/log.cpp
 )
 
 # 为可执行文件启用 ASan
