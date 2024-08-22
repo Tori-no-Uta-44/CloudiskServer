@@ -171,6 +171,7 @@ bool operator==(const String& data1, const String& data2) {
 			return false;
 		}
 	}
+
 	return true;
 }
 
@@ -179,16 +180,16 @@ bool operator!=(const String& data1, const String& data2) {
 }
 
 bool operator<(const String& data1, const String& data2) {
-	size_t minSize=std::min(data1.size(), data2.size());
-	for(size_t i=0; i<minSize;i++) {
-		if(data1.c_str()[i]<data2.c_str()[i]) {
+	size_t minSize = std::min(data1.size(), data2.size());
+	for (size_t i = 0; i < minSize; i++) {
+		if (data1.c_str()[i] < data2.c_str()[i]) {
 			return true;
 		}
-		if (data1.c_str()[i]>data2.c_str()[i]) {
+		if (data1.c_str()[i] > data2.c_str()[i]) {
 			return false;
 		}
 	}
-	return data1.size()<data2.size();
+	return data1.size() < data2.size();
 }
 
 bool operator>(const String& data1, const String& data2) {
@@ -219,112 +220,112 @@ String operator+(const char* string, const String& string1) {
 }
 
 void testDefaultConstructor() {
-    String str;
-    assert(str.size() == 0);
-    assert(strcmp(str.c_str(), "") == 0);
-    std::cout << "Default constructor test passed!" << std::endl;
+	String str;
+	assert(str.size() == 0);
+	assert(strcmp(str.c_str(), "") == 0);
+	std::cout << "Default constructor test passed!" << std::endl;
 }
 
 void testParameterizedConstructor() {
-    String str("Hello");
-    assert(str.size() == 5);
-    assert(strcmp(str.c_str(), "Hello") == 0);
-    std::cout << "Parameterized constructor test passed!" << std::endl;
+	String str("Hello");
+	assert(str.size() == 5);
+	assert(strcmp(str.c_str(), "Hello") == 0);
+	std::cout << "Parameterized constructor test passed!" << std::endl;
 }
 
 void testCopyConstructor() {
-    String str1("Copy me");
-    String str2(str1);
-    assert(str2.size() == str1.size());
-    assert(strcmp(str2.c_str(), str1.c_str()) == 0);
-    std::cout << "Copy constructor test passed!" << std::endl;
+	String str1("Copy me");
+	String str2(str1);
+	assert(str2.size() == str1.size());
+	assert(strcmp(str2.c_str(), str1.c_str()) == 0);
+	std::cout << "Copy constructor test passed!" << std::endl;
 }
 
 void testAssignmentOperator() {
-    String str1("Assign me");
-    String str2;
-    str2 = str1;
-    assert(str2.size() == str1.size());
-    assert(strcmp(str2.c_str(), str1.c_str()) == 0);
-    std::cout << "Assignment operator test passed!" << std::endl;
+	String str1("Assign me");
+	String str2;
+	str2 = str1;
+	assert(str2.size() == str1.size());
+	assert(strcmp(str2.c_str(), str1.c_str()) == 0);
+	std::cout << "Assignment operator test passed!" << std::endl;
 }
 
 void testAssignmentOperatorWithCStr() {
-    String str;
-    str = "C-string";
-    assert(str.size() == 8);
-    assert(strcmp(str.c_str(), "C-string") == 0);
-    std::cout << "Assignment operator with C-string test passed!" << std::endl;
+	String str;
+	str = "C-string";
+	assert(str.size() == 8);
+	assert(strcmp(str.c_str(), "C-string") == 0);
+	std::cout << "Assignment operator with C-string test passed!" << std::endl;
 }
 
 void testConcatenationOperator() {
-    String str1("Hello, ");
-    String str2("world!");
-    str1 += str2;
-    assert(strcmp(str1.c_str(), "Hello, world!") == 0);
-    std::cout << "Concatenation operator test passed!" << std::endl;
+	String str1("Hello, ");
+	String str2("world!");
+	str1 += str2;
+	assert(strcmp(str1.c_str(), "Hello, world!") == 0);
+	std::cout << "Concatenation operator test passed!" << std::endl;
 }
 
 void testConcatenationOperatorWithCStr() {
-    String str1("Hello, ");
-    str1 += "world!";
-    assert(strcmp(str1.c_str(), "Hello, world!") == 0);
-    std::cout << "Concatenation operator with C-string test passed!" << std::endl;
+	String str1("Hello, ");
+	str1 += "world!";
+	assert(strcmp(str1.c_str(), "Hello, world!") == 0);
+	std::cout << "Concatenation operator with C-string test passed!" << std::endl;
 }
 
 void testAdditionOperator() {
-    String str1("Hello, ");
-    String str2("world!");
-    String result = str1 + str2;
-    assert(strcmp(result.c_str(), "Hello, world!") == 0);
-    std::cout << "Addition operator test passed!" << std::endl;
+	String str1("Hello, ");
+	String str2("world!");
+	String result = str1 + str2;
+	assert(strcmp(result.c_str(), "Hello, world!") == 0);
+	std::cout << "Addition operator test passed!" << std::endl;
 }
 
 void testAdditionOperatorWithCStr() {
-    String str1("Hello, ");
-    String result = str1 + "world!";
-    assert(strcmp(result.c_str(), "Hello, world!") == 0);
-    std::cout << "Addition operator with C-string test passed!" << std::endl;
+	String str1("Hello, ");
+	String result = str1 + "world!";
+	assert(strcmp(result.c_str(), "Hello, world!") == 0);
+	std::cout << "Addition operator with C-string test passed!" << std::endl;
 }
 
 void testIndexOperator() {
-    String str("Index test");
-    assert(str[0] == 'I');
-    assert(str[5] == 'x');
-    assert(str[10] == '\0');  // Out of bounds check, should return nullChar
-    std::cout << "Index operator test passed!" << std::endl;
+	String str("Index test");
+	assert(str[0] == 'I');
+	assert(str[5] == 'x');
+	assert(str[10] == '\0'); // Out of bounds check, should return nullChar
+	std::cout << "Index operator test passed!" << std::endl;
 }
 
 void testComparisonOperators() {
-    String str1("abc");
-    String str2("abc");
-    String str3("abcd");
-    String str4("abb");
+	String str1("abc");
+	String str2("abc");
+	String str3("abcd");
+	String str4("abb");
 
-    assert(str1 == str2);
-    assert(str1 != str3);
-    assert(str1 < str3);
-    assert(str4 < str1);
-    assert(str3 > str1);
-    assert(str1 <= str2);
-    assert(str1 <= str3);
-    assert(str3 >= str1);
-    assert(str1 >= str2);
+	assert(str1 == str2);
+	assert(str1 != str3);
+	assert(str1 < str3);
+	assert(str4 < str1);
+	assert(str3 > str1);
+	assert(str1 <= str2);
+	assert(str1 <= str3);
+	assert(str3 >= str1);
+	assert(str1 >= str2);
 
-    std::cout << "Comparison operators test passed!" << std::endl;
+	std::cout << "Comparison operators test passed!" << std::endl;
 }
 
 void testStreamOperators() {
-    String str1("Stream test");
-    std::stringstream ss;
-    ss << str1;
-    assert(ss.str() == "Stream test");
+	String str1("Stream test");
+	std::stringstream ss;
+	ss << str1;
+	assert(ss.str() == "Stream test");
 
-    String str2;
-    ss >> str2;
-    assert(strcmp(str2.c_str(), "Stream") == 0);  // Only first word is extracted
+	String str2;
+	ss >> str2;
+	assert(strcmp(str2.c_str(), "Stream") == 0); // Only first word is extracted
 
-    std::cout << "Stream operators test passed!" << std::endl;
+	std::cout << "Stream operators test passed!" << std::endl;
 }
 
 void test_10_01() {
@@ -360,4 +361,3 @@ void test_10_01() {
 	testComparisonOperators();
 	testStreamOperators();
 }
-

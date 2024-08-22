@@ -246,12 +246,3 @@ void test_08_04() {
 	Line_test_08_04 l;
 	std::cout << l.distance(p1, p2) << endl;
 }
-
-class Log_demo_08_01 {
-public:
-
-};
-
-void demo_08_01() {
-
-}

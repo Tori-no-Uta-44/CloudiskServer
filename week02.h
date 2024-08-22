@@ -43,4 +43,14 @@ void demo_08_01();
 
 void test_10_01();
 
+void test_11_01();
+
+void test_11_02();
+
+void test_11_03();
+
+void test_11_04();
+
+void test_11_05();
+void test_11_06();
 #endif //WEEK02_H
