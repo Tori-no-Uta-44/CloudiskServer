@@ -20,12 +20,20 @@ public:
 		  _capacity(_size),
 		  _isHeapAllocated(_size > 16) {
 		if (_isHeapAllocated) {
+			printf("%p\n", _buffer._pointer);
+			printf("%p\n", _buffer._local);
 			_buffer._pointer = new char[_size];
 			strcpy(_buffer._pointer, data);
 			std::cout << "Heap: " << _buffer._pointer << std::endl;
+			printf("%p\n", _buffer._pointer);
+			printf("%p\n", _buffer._local);
 		} else {
+			printf("%p\n", _buffer._pointer);
+			printf("%p\n", _buffer._local);
 			strcpy(_buffer._local, data);
 			std::cout << "Local: " << _buffer._local << std::endl;
+			printf("%p\n", _buffer._pointer);
+			printf("%p\n", _buffer._local);
 		}
 	}
 
@@ -38,11 +46,9 @@ public:
 };
 
 void test_11_06() {
-	char str[] = "Hello,World!abcdefghijk";
+	char str[] = "Hello,World!This is a long string.";
 	String_test_11_06 test01(str);
-
 	std::cout << "---" << std::endl;
-
-	char str2[] = "Hello,World!";
+	char str2[] = "Hello.";
 	String_test_11_06 test02(str2);
 }

@@ -52,5 +52,17 @@ void test_11_03();
 void test_11_04();
 
 void test_11_05();
+
 void test_11_06();
+
+void test_11_07();
+
+void test_12_01();
+
+void test_12_02();
+
+void test_11_08();
+
+void test_12_03();
+
 #endif //WEEK02_H
