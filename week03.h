@@ -8,5 +8,14 @@
 #include "week02.h"
 
 void test13_01();
+
 void test13_02();
+
+void test13_03();
+
+void test_14_01();
+
+void test14_02();
+
+void test14_03();
 #endif //WEEK03_H
