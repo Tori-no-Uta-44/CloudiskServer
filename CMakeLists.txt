@@ -18,13 +18,13 @@ link_directories(${LOG4CPP_LIBRARY_DIRS})
 # 添加可执行文件
 add_executable(cpp01_02
         main.cpp
-        week01/day01.cpp
+        week1/day01.cpp
         week01.h
-        week01/day02.cpp
-        week01/day03_04.cpp
+        week1/day02.cpp
+        week1/day03_04.cpp
         func.h
-        week01/day05.cpp
-        week01/day06.cpp
+        week1/day05.cpp
+        week1/day06.cpp
         week2/day07.cpp
         week02.h
         week2/day08.cpp

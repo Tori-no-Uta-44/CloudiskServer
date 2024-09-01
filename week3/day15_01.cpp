@@ -3,9 +3,19 @@
 //
 #include "../week03.h"
 
+class Query {
+public:
+	Query(const string &s) {
+	}
+
+};
+
 class Query_base {
 protected:
-	virtual ~Query_base()=default;
+	virtual ~Query_base() = default;
+
+private:
+	virtual string rep() const =0;
 };
 
 class TextQuery01 {
@@ -42,8 +52,8 @@ private:
 bool isTextFileByExtension15_1(const std::string &filePath) {
 	// 定义常见的文本文件扩展名
 	const std::vector<std::string> textExtensions = {".txt", ".log", ".csv", ".md", ".json", ".xml", ".html",
-													 ".ini",
-													 ".cfg", ".cpp", ".h"};
+	                                                 ".ini",
+	                                                 ".cfg", ".cpp", ".h"};
 
 	// 查找文件路径中最后一个 '.' 的位置
 	std::size_t dotPos = filePath.find_last_of('.');
@@ -68,7 +78,8 @@ string dealLine15_1(string &line) {
 		string word = it->str();
 		// -后全为大写字母，将-替换为空格，分为两个单词
 		const size_t hyphenPos = word.find('-');
-		if (hyphenPos != string::npos && std::all_of(word.begin() + static_cast<std::string::difference_type>(hyphenPos) + 1, word.end(), ::isupper)) {
+		if (hyphenPos != string::npos && std::all_of(
+			word.begin() + static_cast<std::string::difference_type>(hyphenPos) + 1, word.end(), ::isupper)) {
 			word[hyphenPos] = ' ';
 		}
 		// 单引号在开头或结尾
@@ -101,7 +112,7 @@ void TextQuery01::readFile(const string &filename) {
 		while (buffer >> data) {
 			string word;
 			memset(word.data(), 0, word.size());
-			word=dealLine15_1(data);
+			word = dealLine15_1(data);
 			if (!word.empty()) {
 				_dict[word]++;
 				_wordNumbers[word].insert(static_cast<int>(_lines.size()));
