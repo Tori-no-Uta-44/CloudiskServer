@@ -19,7 +19,7 @@ public:
 
 	virtual void a() { cout << "B::a()" << endl; }
 	virtual void b() { cout << "B::b()" << endl; }
-	void c() { cout << "B::c()" << endl; }
+	virtual void c() { cout << "B::c()" << endl; }
 	void d() { cout << "B::d()" << endl; }
 };
 
@@ -27,8 +27,8 @@ class C
 	: public A
 	  , public B {
 public:
-	virtual void a() { cout << "C::a()" << endl; }
-	void c() { cout << "C::c()" << endl; }
+	void a() override { cout << "C::a()" << endl; }
+	void c() override { cout << "C::c()" << endl; }
 	void d() { cout << "C::d()" << endl; }
 };
 
@@ -37,7 +37,7 @@ public:
 class D
 	: public C {
 public:
-	void c() { cout << "D::c()" << endl; }
+	void c() override { cout << "D::c()" << endl; }
 };
 
 void test14_03() {

@@ -1,9 +1,14 @@
 //
-// Created by 李勃鋆 on 24-8-24.
+// Created by 李勃鋆 on 24-8-28.
 //
-#include "../week02.h"
+#include "../week03.h"
 
-class TextQuery {
+class Query_base {
+protected:
+	virtual ~Query_base()=default;
+};
+
+class TextQuery01 {
 public:
 	//......
 	void readFile(const string &filename);
@@ -34,10 +39,11 @@ private:
 	map<string, int> _dict; //该单词出现的次数
 };
 
-bool isTextFileByExtension(const std::string &filePath) {
+bool isTextFileByExtension15_1(const std::string &filePath) {
 	// 定义常见的文本文件扩展名
-	const std::vector<std::string> textExtensions = {".txt", ".log", ".csv", ".md", ".json", ".xml", ".html", ".ini",
-	                                                 ".cfg", ".cpp", ".h"};
+	const std::vector<std::string> textExtensions = {".txt", ".log", ".csv", ".md", ".json", ".xml", ".html",
+													 ".ini",
+													 ".cfg", ".cpp", ".h"};
 
 	// 查找文件路径中最后一个 '.' 的位置
 	std::size_t dotPos = filePath.find_last_of('.');
@@ -53,13 +59,39 @@ bool isTextFileByExtension(const std::string &filePath) {
 	return std::find(textExtensions.begin(), textExtensions.end(), fileExtension) != textExtensions.end();
 }
 
-void TextQuery::readFile(const string &filename) {
+string dealLine15_1(string &line) {
+	// 正则表达式匹配合法单词部分
+	const regex words_regex("([A-Za-z]+(-[A-Za-z]+|'[A-Za-z]+)?)");
+	string result;
+	result.reserve(line.size()); // 预分配内存
+	for (auto it = std::sregex_iterator(line.begin(), line.end(), words_regex); it != std::sregex_iterator(); ++it) {
+		string word = it->str();
+		// -后全为大写字母，将-替换为空格，分为两个单词
+		const size_t hyphenPos = word.find('-');
+		if (hyphenPos != string::npos && std::all_of(word.begin() + static_cast<std::string::difference_type>(hyphenPos) + 1, word.end(), ::isupper)) {
+			word[hyphenPos] = ' ';
+		}
+		// 单引号在开头或结尾
+		const size_t apostrophePos = word.find('\'');
+		if (apostrophePos != string::npos && (word.back() == '\'' || word.front() == '\'')) {
+			word[apostrophePos] = ' ';
+		}
+		std::transform(word.begin(), word.end(), word.begin(), ::tolower);
+		if (!result.empty()) {
+			result += ' ';
+		}
+		result += word;
+	}
+	return result;
+}
+
+void TextQuery01::readFile(const string &filename) {
 	ifstream stream(filename);
 	if (!stream.is_open()) {
 		std::cerr << "Failed to open the file." << std::endl;
 		return;
 	}
-	if (!isTextFileByExtension(filename)) {
+	if (!isTextFileByExtension15_1(filename)) {
 		std::cout << filename << " is not a text file." << std::endl;
 	}
 	string line, data;
@@ -68,11 +100,8 @@ void TextQuery::readFile(const string &filename) {
 		istringstream buffer(line);
 		while (buffer >> data) {
 			string word;
-			for (char &ch : data) {
-				if (isalpha(ch)) {
-					word += static_cast<char>(tolower(ch));
-				}
-			}
+			memset(word.data(), 0, word.size());
+			word=dealLine15_1(data);
 			if (!word.empty()) {
 				_dict[word]++;
 				_wordNumbers[word].insert(static_cast<int>(_lines.size()));
@@ -81,7 +110,7 @@ void TextQuery::readFile(const string &filename) {
 	}
 }
 
-void TextQuery::query(const string &word) {
+void TextQuery01::query(const string &word) {
 	if (!word.empty()) {
 		std::string lowerWord;
 		for (char ch : word) {
@@ -102,14 +131,16 @@ void TextQuery::query(const string &word) {
 	}
 }
 
-void test_12_02() {
+void test15_01() {
+	// /root/download/china_daily.txt
 	string queryWord;
 	std::cout << "Enter word: ";
 	std::cin >> queryWord;
 	std::string filePath;
 	std::cout << "Enter the file path: ";
 	std::cin >> filePath;
-	TextQuery tq;
+	TextQuery01 tq;
 	tq.readFile(filePath);
+	// tq.toString();
 	tq.query(queryWord);
 }

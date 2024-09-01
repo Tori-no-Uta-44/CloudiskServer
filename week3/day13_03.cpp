@@ -17,12 +17,24 @@ typedef struct RssItem {
 class RssReader {
 public:
 	RssReader();
-
+	static std::string removeHtmlTags(const std::string& html) {
+		// 定义一个正则表达式来匹配 HTML 标签
+		const std::regex tagRegex("<[^>]*>");
+		// 使用 regex_replace 将 HTML 标签替换为空字符串
+		return std::regex_replace(html, tagRegex, "");
+	}
 	void parseRss(); //解析
 	void dump(const string &filename); //输出
 	void toString() {
+		int count=1;
 		for (const auto &[title, link, description, content] : _rss) {
-			cout << title << " " << link << " " << description << " " << content << endl;
+			std::cout << "<doc>"<<endl;
+			std::cout << "\t<docid>"<<count++<<"</docid>"<<endl;
+			std::cout << "\t<title>"<<title<<"</title>"<<endl;
+			std::cout << "\t<link>"<<link<<"</link>"<<endl;
+			std::cout << "\t<description>"<<description<<"</description>"<<endl;
+			std::cout << "\t<content>"<<content<<"</content>"<<endl;
+			std::cout << "</doc>"<<endl;
 		}
 	}
 
@@ -51,11 +63,10 @@ void RssReader::parseRss() {
 		XMLElement *link = item->FirstChildElement("link");
 		XMLElement *description = item->FirstChildElement("description");
 		XMLElement *content = item->FirstChildElement("content:encoded"); // 使用正确的元素名
-
 		rssItem.title = title ? title->GetText() : "";
 		rssItem.link = link ? link->GetText() : "";
-		rssItem.description = description ? description->GetText() : "";
-		rssItem.content = content ? content->GetText() : "";
+		rssItem.description = description ? removeHtmlTags(description->GetText()) : "";
+		rssItem.content = content ? removeHtmlTags(content->GetText()) : "";
 
 		_rss.push_back(rssItem);
 
@@ -69,8 +80,15 @@ void RssReader::dump(const string &filename) {
 		cerr << "Failed to open file " << filename << endl;
 		return;
 	}
+	int count=1;
 	for (const auto &[title, link, description, content] : _rss) {
-		fout << title << " " << link << " " << description << " " << content << endl;
+		fout << "<doc>"<<endl;
+		fout << "\t<docid>"<<count++<<"</docid>"<<endl;
+		fout << "\t<title>"<<title<<"</title>"<<endl;
+		fout << "\t<link>"<<link<<"</link>"<<endl;
+		fout << "\t<description>"<<description<<"</description>"<<endl;
+		fout << "\t<content>"<<content<<"</content>"<<endl;
+		fout << "</doc>"<<endl;
 	}
 	fout.close();
 }

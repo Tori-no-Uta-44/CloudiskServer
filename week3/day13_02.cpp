@@ -43,10 +43,10 @@ public:
 class Employee13_02 : public Person13_02 {
 public:
 	char *_department;
-	double _salary;
+	static double _salary;
 
 	Employee13_02(char *name, int age, char *department, double salary):
-		Person13_02(name, age), _department(new char[strlen(department) + 1]()), _salary(salary) {
+		Person13_02(name, age), _department(new char[strlen(department) + 1]()) {
 		strcpy(_department, department);
 	}
 
@@ -58,7 +58,7 @@ public:
 	}
 
 	Employee13_02(const Employee13_02 &rhs):
-		Person13_02(rhs), _department(new char[strlen(rhs._department) + 1]()), _salary(rhs._salary) {
+		Person13_02(rhs), _department(new char[strlen(rhs._department) + 1]()) {
 		strcpy(_department, rhs._department);
 	}
 
@@ -76,16 +76,16 @@ public:
 	void display() const {
 		std::cout << _name << " " << _age << " " << _department << std::endl;
 	}
-	double salary() const {
-		return _salary;
-	}
-	double average(int totalEmployees,double totalSalary) const {
+
+	double average(int totalEmployees) const {
 		if(totalEmployees>0) {
 			return _salary/totalEmployees;
 		}
-		return 0;
+		return 0.0;
 	}
 };
+
+double Employee13_02::_salary=0;
 
 void testPersonCreation() {
     // 测试创建 Person13_02 对象
@@ -149,7 +149,7 @@ void testAverageCalculation() {
     double totalSalary = 180000.0;
     int totalEmployees = 2;
 
-    double avg = employee.average(totalEmployees, totalSalary);
+    double avg = employee.average(totalEmployees);
     assert(avg == 45000.0); // 90000 / 2
     cout << "testAverageCalculation passed!" << endl;
 }

@@ -19,6 +19,10 @@
 #include <map>
 #include <algorithm>
 #include <mutex>
+#include <regex>
+#include <cstdlib>
+#include <stdexcept>
+#include <memory>
 using namespace std;
 
 void test_01_01();
