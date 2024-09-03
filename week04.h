@@ -17,4 +17,12 @@ void test18_4();
 void test18_5();
 
 void test18_6();
+
+void test20_1();
+
+void test20_2();
+
+void test20_3();
+
+void test20_4();
 #endif //WEEK04_H
