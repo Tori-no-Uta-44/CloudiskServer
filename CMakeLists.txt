@@ -57,6 +57,7 @@ add_executable(cpp01_02
         week3/strings.cpp
         week4/day18_1.cpp
         week04.h
+        week4/day20_1.cpp
 
 
 )
