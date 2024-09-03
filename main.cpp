@@ -1,6 +1,6 @@
-#include "week03.h"
+#include "week04.h"
 
 int main(int argc, char *argv[]) {
-	test15_01();
+	test18_6();
 	return 0;
 }

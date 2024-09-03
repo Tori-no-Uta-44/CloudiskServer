@@ -1,5 +1,5 @@
 //
-// Created by 李勃鋆 on 24-8-15.
+// Created by 李勃鋆 on 24-9-2.
 //
 #include "../week01.h"
 
@@ -39,15 +39,15 @@ public:
 	int age;
 	double weight;
 	double height;
-	
+
 	Student()=default;
-	
+
 	Student(int id, const std::string &name, int age, double weight, double height)
 			: _id(id), name(new std::string(name)), age(age), weight(weight), height(height) {}
-			
+
 	Student(const Student &student)
 			: _id(student._id), name(new std::string(*student.name)), age(student.age), weight(student.weight), height(student.height) {}
-			
+
 	Student &operator=(const Student &student) {
 		if (this != &student) {
 			delete name;  // 释放旧内存
@@ -59,52 +59,52 @@ public:
 		}
 		return *this;
 	}
-	
+
 	[[nodiscard]] int getId() const {
 		return _id;
 	}
-	
+
 	void setId(int id) {
 		this->_id = id;
 	}
-	
+
 	[[nodiscard]] std::string getName() const {
 		return *name;
 	}
-	
+
 	void setName(const std::string &newName) const {
 		*(this->name) = newName;
 	}
-	
+
 	[[nodiscard]] int getAge() const {
 		return age;
 	}
-	
+
 	void setAge(int newAge) {
 		this->age = newAge;
 	}
-	
+
 	[[nodiscard]] double getWeight() const {
 		return weight;
 	}
-	
+
 	void setWeight(double newWeight) {
 		this->weight = newWeight;
 	}
-	
+
 	[[nodiscard]] double getHeight() const {
 		return height;
 	}
-	
+
 	void setHeight(double newHeight) {
 		this->height = newHeight;
 	}
-	
+
 	void toString() const {
 		std::cout << "id:" << _id << " name:" << *name << " age:" << age
 		          << " weight:" << weight << " height:" << height << std::endl;
 	}
-	
+
 	~Student() {
 		delete name;
 	}

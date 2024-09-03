@@ -18,13 +18,13 @@ link_directories(${LOG4CPP_LIBRARY_DIRS})
 # 添加可执行文件
 add_executable(cpp01_02
         main.cpp
-        week1/day01.cpp
+        week1/day1.cpp
         week01.h
-        week1/day02.cpp
-        week1/day03_04.cpp
+        week1/day2.cpp
+        week1/day3+4.cpp
         func.h
-        week1/day05.cpp
-        week1/day06.cpp
+        week1/day5.cpp
+        week1/day6.cpp
         week2/day07.cpp
         week02.h
         week2/day08.cpp
@@ -54,6 +54,11 @@ add_executable(cpp01_02
         week3/day16_02.cpp
         week3/day17_01.cpp
         week3/day17_02.cpp
+        week3/strings.cpp
+        week4/day18_1.cpp
+        week04.h
+
+
 )
 
 # 为可执行文件启用 ASan

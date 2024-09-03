@@ -1,7 +1,6 @@
 //
-// Created by 李勃鋆 on 24-8-16.
+// Created by 李勃鋆 on 24-9-2.
 //
-
 #include <utility>
 
 #include "../week01.h"
@@ -12,7 +11,7 @@ public:
 		i = 0;
 		k++;
 	}
-	
+
 	void toString() const {
 		std::cout << i << "--" << k << std::endl;
 	}
@@ -38,7 +37,7 @@ public:
 	T() : fourth(third), second(i++), first(i++), third(i++) {
 		third = i;
 	}
-	
+
 	void toString() const {
 		std::cout << first << " " << second << " " << third << " " << fourth << std::endl;
 		std::cout << first + second + third + fourth << std::endl;
@@ -64,15 +63,15 @@ public:
 	explicit P(int x = 0, int y = 0) : x(x), y(y) {
 		std::cout << "pc" << std::endl;
 	}
-	
+
 	P(const P &p) : x(p.x), y(p.y) {
 		std::cout << "pco" << std::endl;
 	}
-	
+
 	[[nodiscard]] double getX() const {
 		return x;
 	}
-	
+
 	[[nodiscard]] double getY() const {
 		return y;
 	}
@@ -93,7 +92,7 @@ public:
 		std::cout << x << " " << y << std::endl;
 		dist = sqrt(x * x + y * y);
 	}
-	
+
 	void toString() const {
 		std::cout << dist << std::endl;
 	}
@@ -111,16 +110,16 @@ public:
 	explicit M(int = 0) {
 		std::cout << i;
 	}
-	
+
 	M(const M &m) {
 		std::cout << 2.0;
 	}
-	
+
 	M &operator=(const M &m) {
 		std::cout << 3;
 		return *this;
 	}
-	
+
 	~M() {
 		std::cout << 4;
 	}
@@ -138,22 +137,22 @@ private:
 	int ix;
 	int iy;
 	static Point *p;
-	
+
 	Point() = default;
-	
+
 	Point(int x, int y) : ix(x), iy(y) {
 		std::cout << "(int,int)" << std::endl;
 	}
-	
+
 	~Point() {
 		std::cout << "~Point()" << std::endl;
 	}
 
 public:
 	Point(const Point &p) = delete;
-	
+
 	Point &operator=(const Point &p) = delete;
-	
+
 	static Point *createPoint() {
 		if (p == nullptr) {
 			p = new Point(0, 0);
@@ -161,16 +160,16 @@ public:
 		}
 		return p;
 	}
-	
+
 	void set(int x, int y) {
 		ix = x;
 		iy = y;
 	}
-	
+
 	void toString() const {
 		std::cout << ix << "," << iy << std::endl;
 	}
-	
+
 	static void destroy() {
 		if (p != nullptr) {
 			delete p;
@@ -194,7 +193,7 @@ private:
 	std::string *_brand;
 	double _price;
 	static Computer *pc;
-	
+
 	Computer() = default;
 
 //Computer(const char *brand, double price) : brand(new char[std::strlen(brand) + 1]()), price(price) {
@@ -202,7 +201,7 @@ private:
 //		std::cout << "(char*,double)" << std::endl;
 //	}
 	Computer(const std::string &brand, double price) : _brand(new std::string(brand)), _price(price) {}
-	
+
 	~Computer() {
 		if (_brand != nullptr) {
 			delete _brand;
@@ -212,9 +211,9 @@ private:
 
 public:
 	Computer(const Computer &c) = delete;
-	
+
 	Computer &operator=(const Computer &c) = delete;
-	
+
 	static Computer *computerInstance() {
 		if (pc == nullptr) {
 			pc = new Computer("", 0);
@@ -232,11 +231,11 @@ public:
 		*_brand = std::move(brand);
 		this->_price = price;
 	}
-	
+
 	void toString() {
 		std::cout << *_brand << "," << _price << std::endl;
 	}
-	
+
 	static void destroy() {
 		if (pc != nullptr) {
 			delete pc;

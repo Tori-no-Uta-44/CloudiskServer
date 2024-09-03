@@ -23,6 +23,9 @@
 #include <cstdlib>
 #include <stdexcept>
 #include <memory>
+#include <deque>
+#include <list>
+#include <random>
 using namespace std;
 
 void test_01_01();

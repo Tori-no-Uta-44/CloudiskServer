@@ -26,19 +26,19 @@ int &&func_17_1_move() {
 	return move(a_17_1);
 }
 
-int &&func17_1_move2() {
-	int a = 1, b = 2;
-	return a + b;
-}
+// int &&func17_1_move2() {
+// 	int a = 1, b = 2;
+// 	return a + b;
+// }
 
 void test17_2() {
 	cout << &func17_1_ref() << endl;
 	cout << &a_17_1 << endl;
 	int &&ref = func_17_1_move();
 	cout << &ref << endl;
-	int &&x = func17_1_move2();
-	cout << &x << endl;
-	x = 0;
+	// int &&x = func17_1_move2();
+	// cout << &x << endl;
+	// x = 0;
 }
 
 // 前向声明
@@ -146,17 +146,17 @@ void test17_3() {
 	computer->toString();
 }
 
-void test17_4() {
-	int *p = new int(11);
-	auto_ptr<int> a(p);
-	cout << p << endl;
-	cout << a.get() << endl;
-	cout << *a << endl;
-	auto_ptr<int> b = a;
-	cout << b.get() << endl;
-	cout << *b << endl;
-	cout << *a << endl;
-}
+// void test17_4() {
+// 	int *p = new int(11);
+// 	auto_ptr<int> a(p);
+// 	cout << p << endl;
+// 	cout << a.get() << endl;
+// 	cout << *a << endl;
+// 	auto_ptr<int> b = a;
+// 	cout << b.get() << endl;
+// 	cout << *b << endl;
+// 	cout << *a << endl;
+// }
 
 void test17_5() {
 	unique_ptr<int> p(new int(22));
