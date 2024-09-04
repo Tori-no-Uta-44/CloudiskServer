@@ -12,7 +12,7 @@ void test20_1() {
 	auto it = lst.begin();
 	v.emplace_back(*it);
 	++it;
-	v.push_back(*it);
+	v.emplace_back(*it);
 	for (auto &i : v) {
 		cout << i << endl;
 	}
@@ -34,8 +34,8 @@ void test20_2() {
 	string s3;
 	std::cin >> s3;
 	d.push_front(s3);
-	for (auto it = d.begin(); it != d.end(); ++it) {
-		cout << *it << "\t";
+	for (auto &it : d) {
+		cout << it << "\t";
 	}
 	cout << endl;
 }
@@ -77,11 +77,17 @@ public:
 
 	friend ostream &operator<<(ostream &out, const Stu_20 &s);
 
-	[[nodiscard]] double get_c_score() const;
+	[[nodiscard]] double get_c_score() const {
+		return _cScore;
+	}
 
-	[[nodiscard]] double get_m_score() const;
+	[[nodiscard]] double get_m_score() const {
+		return _mScore;
+	}
 
-	[[nodiscard]] double get_e_score() const;
+	[[nodiscard]] double get_e_score() const {
+		return _eScore;
+	}
 
 private:
 	string _name;
@@ -90,18 +96,6 @@ private:
 	double _mScore = 0;
 	double _eScore = 0;
 };
-
-double Stu_20::get_c_score() const {
-	return _cScore;
-}
-
-double Stu_20::get_m_score() const {
-	return _mScore;
-}
-
-double Stu_20::get_e_score() const {
-	return _eScore;
-}
 
 ostream &operator<<(ostream &out, const Stu_20 &s) {
 	out << s._name << "-" << s._age << "-" << s._cScore << "-" << s._mScore << "-" << s._eScore << "\t";
@@ -113,11 +107,10 @@ bool CompareStu_20(const Stu_20 &s1, const Stu_20 &s2) {
 	double sum2 = 0.0;
 	sum1 = s1.get_c_score() + s1.get_m_score() + s1.get_e_score();
 	sum2 = s2.get_c_score() + s2.get_m_score() + s2.get_e_score();
-	if(sum1==sum2) {
-		return s1.get_c_score()>s2.get_c_score();
+	if (sum1 == sum2) {
+		return s1.get_c_score() > s2.get_c_score();
 	}
-	return sum1>sum2;
-
+	return sum1 > sum2;
 }
 
 void test20_4() {
@@ -128,6 +121,6 @@ void test20_4() {
 	list<Stu_20> l = {s1, s2, s3};
 	l.sort(CompareStu_20);
 	for (auto &i : l) {
-		cout<<i<<endl;
+		cout << i << endl;
 	}
 }
