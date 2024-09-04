@@ -1,5 +1,5 @@
 #include "week04.h"
 int main(int argc, char *argv[]) {
-	test20_4();
+	test21_3();
 	return 0;
 }

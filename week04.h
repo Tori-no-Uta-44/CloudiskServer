@@ -25,4 +25,7 @@ void test20_2();
 void test20_3();
 
 void test20_4();
+void test21_1();
+void test21_2();
+void test21_3();
 #endif //WEEK04_H
