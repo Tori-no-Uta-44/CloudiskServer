@@ -39,4 +39,6 @@ void test22_2();
 void test22_3();
 
 void test22_4();
+
+void test24_01();
 #endif //WEEK04_H
