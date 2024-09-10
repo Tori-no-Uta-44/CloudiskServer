@@ -59,8 +59,20 @@ add_executable(cpp01_02
         week04.h
         week4/day20_1.cpp
         week4/day21_1.cpp
-
-
+        week0/countingSort.cpp
+        week0/prefixSum.cpp
+        week4/day22_1.cpp
+        week4/day23_1.cpp
+        week0/radixSort.cpp
+        week0/AdjacencyList.cpp
+        week0/AdjacencyMatrix.cpp
+        week0/BFS.cpp
+        week0/ConnectedComponents.cpp
+        week0/DFS.cpp
+        week0/DAG.cpp
+        week5.h
+        week5/day25_1.cpp
+        week4/day24_01.cpp
 )
 
 # 为可执行文件启用 ASan

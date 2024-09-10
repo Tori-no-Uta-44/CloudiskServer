@@ -26,6 +26,14 @@
 #include <deque>
 #include <list>
 #include <random>
+#include <array>
+#include <unordered_map>
+#include <chrono>
+#include <ctime>
+#include <queue>
+#include <stack>
+#include <functional>
+#include <climits>
 using namespace std;
 
 void test_01_01();
@@ -65,4 +73,38 @@ void test_06_02();
 void test_06_03();
 
 void test_06_04();
+
+char *sCopy(char *dest, const char *src);
+
+char *sNCopy(char *dest, const char *src, int count);
+
+long sLen(const char *s);
+
+char *sCat(char *dest, const char *src);
+
+char *sNCat(char *dest, const char *src, int count);
+
+int sCmp(const char *s1, const char *s2);
+
+int sNCmp(const char *s1, const char *s2, int count);
+
+int adList_test();
+
+int AdMatrix_test();
+
+int BFS_test();
+
+int ConnectedComponents_test();
+
+int countingSort_test();
+
+int DAG_test();
+
+int DFS_test();
+
+void prefixSum1();
+
+void prefixSum2();
+
+int radixSort_test();
 #endif //DAY01_H

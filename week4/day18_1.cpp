@@ -85,7 +85,8 @@ void test18_4() {
 	Person_18 personD("dd");
 	Person_18 personE("ee");
 	vector<Person_18> persons = {personA, personB, personC, personD};
-	std::mt19937 generator;
+	std::random_device rd;  // 使用随机设备生成种子
+	std::mt19937_64 generator(rd());
 	std::uniform_int_distribution<int> distribution(1, 100);
 	for (auto &person : persons) {
 		deque<int> scores;
