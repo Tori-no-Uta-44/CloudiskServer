@@ -5,5 +5,12 @@
 #ifndef WEEK5_H
 #define WEEK5_H
 #include "week01.h"
+
 void test25_1();
+
+void test27_1();
+
+void test28_1();
+
+void test28_2();
 #endif //WEEK5_H

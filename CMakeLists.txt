@@ -73,6 +73,8 @@ add_executable(cpp01_02
         week5.h
         week5/day25_1.cpp
         week4/day24_01.cpp
+        week5/day27.cpp
+        week5/day28_1.cpp
 )
 
 # 为可执行文件启用 ASan
