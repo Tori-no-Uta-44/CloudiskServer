@@ -13,4 +13,7 @@ void test27_1();
 void test28_1();
 
 void test28_2();
+
+void test29_1();
+void test30_1();
 #endif //WEEK5_H

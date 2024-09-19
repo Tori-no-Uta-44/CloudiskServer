@@ -75,6 +75,32 @@ add_executable(cpp01_02
         week4/day24_01.cpp
         week5/day27.cpp
         week5/day28_1.cpp
+        week5/day29_1.cpp
+        week5/day30_1.cpp
+        week5/STaskQueue.cpp
+        week5/STaskQueue.h
+        week5/SThreadPoll.cpp
+        week5/SThreadPoll.h
+        week5/Task.h
+        week5/STaskQueue.cpp
+        week5/AbstractShape.h
+        week5/AbstractColor.h
+        week5/Shape.cpp
+        week5/Shape.h
+        week5/Color.cpp
+        week5/Color.h
+        week5/Tasks.cpp
+        week5/Tasks.h
+        week6/ReactorV1/Socket.cpp
+        week6/ReactorV1/Socket.h
+        week6/ReactorV1/InetAddress.cpp
+        week6/ReactorV1/InetAddress.h
+        week6/ReactorV1/Acceptor.cpp
+        week6/ReactorV1/Acceptor.h
+        week6/ReactorV1/TcpConnection.cpp
+        week6/ReactorV1/TcpConnection.h
+        week6/ReactorV1/SocketIO.cpp
+        week6/ReactorV1/SocketIO.h
 )
 
 # 为可执行文件启用 ASan
