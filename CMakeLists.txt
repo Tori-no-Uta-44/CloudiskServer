@@ -91,16 +91,16 @@ add_executable(cpp01_02
         week5/Color.h
         week5/Tasks.cpp
         week5/Tasks.h
-        week6/ReactorV1/Socket.cpp
-        week6/ReactorV1/Socket.h
-        week6/ReactorV1/InetAddress.cpp
-        week6/ReactorV1/InetAddress.h
-        week6/ReactorV1/Acceptor.cpp
-        week6/ReactorV1/Acceptor.h
-        week6/ReactorV1/TcpConnection.cpp
-        week6/ReactorV1/TcpConnection.h
-        week6/ReactorV1/SocketIO.cpp
-        week6/ReactorV1/SocketIO.h
+        week6/ReactorV2/Acceptor.h
+        week6/ReactorV2/Acceptor.cpp
+        week6/ReactorV2/InetAddress.cpp
+        week6/ReactorV2/Socket.cpp
+        week6/ReactorV2/TcpConnection.cpp
+        week6/ReactorV2/SocketIO.cpp
+        week6.h
+        week6/ReactorV2/EventLoop.cpp
+        week6/ReactorV2/EventLoop.h
+        week6/day33_1.cpp
 )
 
 # 为可执行文件启用 ASan
