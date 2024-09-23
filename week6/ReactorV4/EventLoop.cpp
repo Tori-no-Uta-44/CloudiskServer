@@ -4,40 +4,82 @@
 
 #include "EventLoop.h"
 
-namespace ReactorV2 {
+namespace ReactorV4 {
 	EventLoop::EventLoop(Acceptor &acceptor):
-		_epfd(createEpollFd()), _events(1024), _isLooping(false), _acceptor(acceptor) {
+		_epfd(createEpollFd()), _events(1024), _isLooping(false), _acceptor(acceptor), _evtfd(createEventFd()) {
 		addEpollReadFd(_acceptor.getFd());
+		addEpollReadFd(_evtfd);
 	}
 
 	void EventLoop::loop() {
-		_isLooping=true;
-		while(_isLooping) {
+		_isLooping = true;
+		while (_isLooping) {
 			waitEpollFd();
 		}
 	}
 
 	void EventLoop::unLoop() {
 		_isLooping = false;
+		wakeup();
 	}
 
 	void EventLoop::setNewConnectionCallback(TcpConnectionCallback &&callback) {
 		_onNewConnection = move(callback);
-		cout<<"setNewConnectionCallback &&"<<endl;
+		cout << "setNewConnectionCallback &&" << endl;
 	}
 
 	void EventLoop::setMessageCallback(TcpConnectionCallback &&callback) {
 		_onMessage = move(callback);
-		cout<<"setMessageCallback &&"<<endl;
+		cout << "setMessageCallback &&" << endl;
 	}
 
 	void EventLoop::setCloseCallback(TcpConnectionCallback &&callback) {
 		_onClose = move(callback);
-		cout<<"setCloseCallback &&"<<endl;
+		cout << "setCloseCallback &&" << endl;
+	}
+
+	void EventLoop::wakeup() {
+		uint64_t one = 1;
+		if (send(_evtfd, &one, sizeof(one), 0) != sizeof(uint64_t)) {
+			throw std::runtime_error("send EventLoop::wakeup()" + std::string(std::strerror(errno)));
+		}
+	}
+
+	void EventLoop::doPendingFunctors() {
+		vector<Functor> t;
+		unique_lock<mutex> lock(_mutex);
+		t.swap(_pending);
+		lock.unlock();
+		for (auto &cb : t) {
+			cb();
+		}
+	}
+
+	void EventLoop::runInLoop(Functor &&cd) {
+		unique_lock<mutex> lock(_mutex);
+		_pending.emplace_back(cd);
+		lock.unlock();
+		wakeup();
+	}
+
+	void EventLoop::handleRead() {
+		uint64_t s = 1;
+		if (recv(_evtfd, &s, sizeof(s), 0) != sizeof(uint64_t)) {
+			throw std::runtime_error("recv EventLoop::handleRead()" + std::string(std::strerror(errno)));
+		}
+	}
+
+	int EventLoop::createEventFd() {
+		int efd = eventfd(0, 0);
+		if (efd == -1) {
+			throw std::runtime_error("eventfd failed" + std::string(std::strerror(errno)));
+		}
+		return efd;
 	}
 
 	EventLoop::~EventLoop() {
 		close(_epfd);
+		close(_evtfd);
 	}
 
 	void EventLoop::waitEpollFd() {
@@ -48,8 +90,7 @@ namespace ReactorV2 {
 		}
 		while (num == -1 && errno == EINTR);
 		if (num == -1) {
-			std::cerr << "epoll_wait error" << std::endl;
-			return;
+			throw std::runtime_error("epoll_wait error" + std::string(std::strerror(errno)));
 		}
 		if (num == 0) {
 			std::cerr << "epoll_wait timeout" << std::endl;
@@ -60,7 +101,14 @@ namespace ReactorV2 {
 			}
 			for (int i = 0; i < num; i++) {
 				if (_events[i].data.fd == _acceptor.getFd()) {
-					handleNewConnection();
+					if(_events[i].events&EPOLLIN) {
+						handleNewConnection();
+					}
+				}else if(_events[i].data.fd==_evtfd) {
+					if(_events[i].events&EPOLLIN) {
+						handleRead();
+						doPendingFunctors();
+					}
 				}
 				else {
 					if (_events[i].events & EPOLLIN) {
@@ -69,34 +117,37 @@ namespace ReactorV2 {
 				}
 			}
 		}
-
 	}
 
 	void EventLoop::handleNewConnection() {
-		int fd=_acceptor.accepting();
-		if(fd==-1) {
+		int fd = _acceptor.accepting();
+		if (fd == -1) {
 			std::cerr << "accept error" << std::endl;
+			return;
 		}
 		addEpollReadFd(fd);
-		TcpConnectionPrt con(new TcpConnection(fd));
+		// TcpConnectionPtr con(new TcpConnection(fd, this));
+		TcpConnectionPtr con(make_shared<TcpConnection>(fd, this));
 		con->setNewConnectionCallback(_onNewConnection);
 		con->setMessageCallback(_onMessage);
 		con->setCloseCallback(_onClose);
-		_connections[fd]=con;
+		_connections[fd] = con;
 		con->invokeNewConnectionCallback();
 	}
 
 	void EventLoop::handleMessage(int fd) {
-		auto it=_connections.find(fd);
-		if(it!=_connections.end()) {
-			if(it->second->isClosed()) {
+		auto it = _connections.find(fd);
+		if (it != _connections.end()) {
+			if (it->second->isClosed()) {
 				it->second->invokeCloseCallback();
 				delEpollReadFd(fd);
 				_connections.erase(it);
-			}else {
+			}
+			else {
 				it->second->invokeMessageCallback();
 			}
-		}else {
+		}
+		else {
 			std::cerr << "fd " << fd << " doesn't exist" << std::endl;
 		}
 	}
@@ -111,7 +162,7 @@ namespace ReactorV2 {
 		return epfd;
 	}
 
-	void EventLoop::addEpollReadFd(const int fd) const {
+	void EventLoop::addEpollReadFd(const int fd) {
 		//2
 		epoll_event event{};
 		event.events = EPOLLIN;
@@ -121,7 +172,7 @@ namespace ReactorV2 {
 		}
 	}
 
-	void EventLoop::delEpollReadFd(const int fd) const {
+	void EventLoop::delEpollReadFd(const int fd) {
 		//最后
 		epoll_event event{};
 		event.events = EPOLLIN;
@@ -130,4 +181,4 @@ namespace ReactorV2 {
 			cerr << "epoll_ctl fail" << endl;
 		}
 	}
-} // ReactorV2
+}

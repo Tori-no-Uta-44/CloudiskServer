@@ -4,12 +4,12 @@
 
 #include "Acceptor.h"
 
-namespace ReactorV2 {
+namespace ReactorV4 {
 	Acceptor::Acceptor(const string &ip, uint16_t port):
 		_address(ip, port) {
 	}
 
-	void Acceptor::reSet() {
+	void Acceptor::setSocketOptions() {
 		int reuse = 1;
 		if (setsockopt(_socket.get_socket_fd(), SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) < 0) {
 			throw std::runtime_error("setsockopt SO_REUSEADDR failed: " + std::string(std::strerror(errno)));

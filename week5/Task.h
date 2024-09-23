@@ -18,5 +18,5 @@ namespace day30_1 {
 		virtual unique_ptr<AbstractColor> getColor() =0;
 	};
 
-} // day30_1
+}
 #endif // TASK_H

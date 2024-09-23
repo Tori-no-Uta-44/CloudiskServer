@@ -77,12 +77,12 @@ add_executable(cpp01_02
         week5/day28_1.cpp
         week5/day29_1.cpp
         week5/day30_1.cpp
-        week5/STaskQueue.cpp
-        week5/STaskQueue.h
+        week5/TaskQueue.cpp
+        week5/TaskQueue.h
         week5/SThreadPoll.cpp
         week5/SThreadPoll.h
         week5/Task.h
-        week5/STaskQueue.cpp
+        week5/TaskQueue.cpp
         week5/AbstractShape.h
         week5/AbstractColor.h
         week5/Shape.cpp
@@ -101,6 +101,53 @@ add_executable(cpp01_02
         week6/ReactorV2/EventLoop.cpp
         week6/ReactorV2/EventLoop.h
         week6/day33_1.cpp
+        week6/ReactorV4/Acceptor.h
+        week6/ReactorV4/Acceptor.cpp
+        week6/ReactorV4/InetAddress.cpp
+        week6/ReactorV4/Socket.cpp
+        week6/ReactorV4/TcpConnection.cpp
+        week6/ReactorV4/SocketIO.cpp
+        week6/ReactorV4/EventLoop.cpp
+        week6/ReactorV4/EventLoop.h
+        week6/ReactorV4/TaskQueue.h
+        week6/ReactorV4/TaskQueue.cpp
+        week6/ReactorV4/ThreadPool.h
+        week6/ReactorV4/ThreadPool.cpp
+        week6/ReactorV4/TCpServer.cpp
+        week6/ReactorV4/TCpServer.h
+        week6/day34_1.cpp
+        week6/ReactorV4/AbstractColor.h
+        week6/ReactorV4/AbstractShape.h
+        week6/ReactorV4/Color.h
+        week6/ReactorV4/Color.cpp
+        week6/ReactorV4/Shape.h
+        week6/ReactorV4/Shape.cpp
+        week6/ReactorV4/Tasks.h
+        week6/ReactorV4/Tasks.cpp
+        week6/ReactorV5/Acceptor.h
+        week6/ReactorV5/Acceptor.cpp
+        week6/ReactorV5/InetAddress.cpp
+        week6/ReactorV5/Socket.cpp
+        week6/ReactorV5/TcpConnection.cpp
+        week6/ReactorV5/SocketIO.cpp
+        week6/ReactorV5/EventLoop.cpp
+        week6/ReactorV5/EventLoop.h
+        week6/ReactorV5/TaskQueue.h
+        week6/ReactorV5/TaskQueue.cpp
+        week6/ReactorV5/ThreadPool.h
+        week6/ReactorV5/ThreadPool.cpp
+        week6/ReactorV5/TCpServer.cpp
+        week6/ReactorV5/TCpServer.h
+        week6/ReactorV5/AbstractColor.h
+        week6/ReactorV5/AbstractShape.h
+        week6/ReactorV5/Color.h
+        week6/ReactorV5/Color.cpp
+        week6/ReactorV5/Shape.h
+        week6/ReactorV5/Shape.cpp
+        week6/ReactorV5/Tasks.h
+        week6/ReactorV5/Tasks.cpp
+        week6/ReactorV5/EchoServer.cpp
+        week6/ReactorV5/EchoServer.h
 )
 
 # 为可执行文件启用 ASan

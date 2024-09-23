@@ -21,7 +21,7 @@
 #include <sys/uio.h>
 #include <sys/sendfile.h>
 #include <mysql/mysql.h>
-
+#include <sys/eventfd.h>
 #define SIZE(a) (sizeof(a)/sizeof(a[0]))
 
 typedef void (*sighandler_t)(int);

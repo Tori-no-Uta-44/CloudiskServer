@@ -4,10 +4,9 @@
 
 #include "Socket.h"
 
-namespace ReactorV2 {
+namespace ReactorV4 {
 	Socket::Socket():_socketFd(socket(AF_INET,SOCK_STREAM,0)) {
 		if(_socketFd<0) {
-			cerr << "Error opening socket" << endl;
 			throw std::runtime_error("Socket creation failed");
 		}
 	}

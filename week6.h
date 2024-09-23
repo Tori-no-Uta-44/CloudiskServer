@@ -6,4 +6,6 @@
 #define WEEK6_H
 
 void test33_1();
+
+void test34_1();
 #endif //WEEK6_H

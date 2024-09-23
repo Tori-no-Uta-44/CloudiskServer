@@ -9,13 +9,13 @@
 #include "../../func.h"
 #include "../../week01.h"
 
-namespace ReactorV2 {
+namespace ReactorV4 {
 
 	class Acceptor {
 	public:
 		Acceptor(const string &ip, uint16_t port);
 
-		void reSet();
+		void setSocketOptions();
 
 		void binding();
 
