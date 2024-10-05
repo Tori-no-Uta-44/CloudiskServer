@@ -1,21 +1,39 @@
 cmake_minimum_required(VERSION 3.22)
 project(cpp01_02)
 
+# 设置 C++ 标准为 C++17
 set(CMAKE_CXX_STANDARD 17)
 
 # 找到 PkgConfig
 find_package(PkgConfig REQUIRED)
 
-# 查找 log4cpp 库
+# 使用 PkgConfig 查找库
+pkg_check_modules(HIREDIS REQUIRED hiredis)
+pkg_check_modules(REDIS_PLUS_PLUS REQUIRED redis++)
 pkg_check_modules(LOG4CPP REQUIRED log4cpp)
+pkg_check_modules(OPENSSL REQUIRED openssl)
 
-# 包含 log4cpp 头文件路径
-include_directories(${LOG4CPP_INCLUDE_DIRS})
+# 手动指定 workflow 库的头文件和库路径
+include_directories(/usr/local/include/workflow)
+link_directories(/usr/local/lib)
 
-# 链接 log4cpp 库路径
-link_directories(${LOG4CPP_LIBRARY_DIRS})
+# 包含 hiredis、redis++、log4cpp 和 OpenSSL 的头文件
+include_directories(
+        ${HIREDIS_INCLUDE_DIRS}
+        ${REDIS_PLUS_PLUS_INCLUDE_DIRS}
+        ${LOG4CPP_INCLUDE_DIRS}
+        ${OPENSSL_INCLUDE_DIRS}
+)
 
-# 添加可执行文件
+# 链接库路径
+link_directories(
+        ${HIREDIS_LIBRARY_DIRS}
+        ${REDIS_PLUS_PLUS_LIBRARY_DIRS}
+        ${LOG4CPP_LIBRARY_DIRS}
+        ${OPENSSL_LIBRARY_DIRS}
+)
+
+# 添加可执行文件并列出所有源文件
 add_executable(cpp01_02
         main.cpp
         week1/day1.cpp
@@ -148,11 +166,22 @@ add_executable(cpp01_02
         week6/ReactorV5/Tasks.cpp
         week6/ReactorV5/EchoServer.cpp
         week6/ReactorV5/EchoServer.h
+        week6/ReactorV5/Timerfd.cpp
+        week6/ReactorV5/Timerfd.h
+        week6/Test_redis.cpp
+        week6/Test_workflow.cpp
 )
 
-# 为可执行文件启用 ASan
+# 为可执行文件启用 AddressSanitizer
 target_compile_options(cpp01_02 PRIVATE -fsanitize=address -g)
 target_link_options(cpp01_02 PRIVATE -fsanitize=address)
 
-# 链接 log4cpp 库到可执行文件
-target_link_libraries(cpp01_02 ${LOG4CPP_LIBRARIES})
+# 链接库到可执行文件
+target_link_libraries(cpp01_02
+        ${HIREDIS_LIBRARIES}
+        ${REDIS_PLUS_PLUS_LIBRARIES}
+        ${LOG4CPP_LIBRARIES}
+        ${OPENSSL_LIBRARIES}
+        workflow  # 手动链接 workflow 库
+        ${LIBRT}
+)
