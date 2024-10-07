@@ -170,6 +170,13 @@ add_executable(cpp01_02
         week6/ReactorV5/Timerfd.h
         week6/Test_redis.cpp
         week6/Test_workflow.cpp
+        week6/Test_redis_workflow.cpp
+        workflow/day02_1.cpp
+        workflow/day02_02.cpp
+        workflow/day02_03.cpp
+        workflow/day02_04.cpp
+        workflow/day03_01.cpp
+        workflow/day03_02.cpp
 )
 
 # 为可执行文件启用 AddressSanitizer

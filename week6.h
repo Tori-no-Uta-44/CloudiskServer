@@ -10,5 +10,8 @@ void test33_1();
 void test34_1();
 
 void test_redis_link();
+
 int testWorkflow();
+
+void test_redis_workflow();
 #endif //WEEK6_H

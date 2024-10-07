@@ -44,7 +44,6 @@ void httpCallback(WFHttpTask *task) {
 		return;
 	}
 
-
 	cerr << req->get_method() << " "//请求的方法
 		<< req->get_http_version() << " "//https的版本
 		<< req->get_request_uri() << "\n";//请求的URI

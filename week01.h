@@ -38,6 +38,7 @@
 #include <thread>
 #include <unordered_map>
 #include <vector>
+#include <csignal>
 using namespace std;
 
 void test_01_01();
@@ -111,4 +112,14 @@ void prefixSum1();
 void prefixSum2();
 
 int radixSort_test();
+
+void WF_test01();
+
+void WF_test02_02();
+
+void WF_test02_04();
+
+void WF_test03_1();
+
+void WF_test03_2();
 #endif //DAY01_H
