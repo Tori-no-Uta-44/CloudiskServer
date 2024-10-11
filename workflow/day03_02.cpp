@@ -73,6 +73,7 @@ namespace day03_2 {
 			}
 		}
 	}
+
 	std::map<std::string, std::string> parse_url_encoded(const std::string &body) {
 		std::map<std::string, std::string> data;
 		std::istringstream body_stream(body);
@@ -87,6 +88,7 @@ namespace day03_2 {
 
 		return data;
 	}
+
 	void process(WFHttpTask *task) {
 		cout << "process is called!\n";
 		protocol::HttpRequest *req = task->get_req(); //获取request（请求）的信息
@@ -113,7 +115,7 @@ namespace day03_2 {
 
 			cout << static_cast<const char *>(body) << "\n";
 
-			std::string body_str(static_cast<const char*>(body), body_len);
+			std::string body_str(static_cast<const char *>(body), body_len);
 
 			// Parse URL-encoded data
 			auto data = parse_url_encoded(body_str);
