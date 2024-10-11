@@ -12,10 +12,21 @@ pkg_check_modules(HIREDIS REQUIRED hiredis)
 pkg_check_modules(REDIS_PLUS_PLUS REQUIRED redis++)
 pkg_check_modules(LOG4CPP REQUIRED log4cpp)
 pkg_check_modules(OPENSSL REQUIRED openssl)
-
+find_package(Protobuf REQUIRED)
 # 手动指定 workflow 库的头文件和库路径
 include_directories(/usr/local/include/workflow)
 link_directories(/usr/local/lib)
+
+find_path(WFREST_INCLUDE_DIR wfrest)
+find_library(WFREST_LIB wfrest)
+
+find_package(Threads REQUIRED)
+find_library(CURL_LIBRARY curl)
+find_library(CRYPTO_LIBRARY crypto)
+find_library(OSS_SDK_LIBRARY alibabacloud-oss-cpp-sdk)
+find_library(SIMPLE_AMQP_CLIENT_LIBRARY SimpleAmqpClient)
+
+find_library(SRPC_LIBRARY srpc)
 
 # 包含 hiredis、redis++、log4cpp 和 OpenSSL 的头文件
 include_directories(
@@ -23,6 +34,8 @@ include_directories(
         ${REDIS_PLUS_PLUS_INCLUDE_DIRS}
         ${LOG4CPP_INCLUDE_DIRS}
         ${OPENSSL_INCLUDE_DIRS}
+        ${WFREST_INCLUDE_DIR}
+        ${Protobuf_INCLUDE_DIRS}
 )
 
 # 链接库路径
@@ -32,6 +45,8 @@ link_directories(
         ${LOG4CPP_LIBRARY_DIRS}
         ${OPENSSL_LIBRARY_DIRS}
 )
+
+add_subdirectory(rpc)
 
 # 添加可执行文件并列出所有源文件
 add_executable(cpp01_02
@@ -177,6 +192,9 @@ add_executable(cpp01_02
         workflow/day02_04.cpp
         workflow/day03_01.cpp
         workflow/day03_02.cpp
+        workflow/test_wfrest.cpp
+        workflow/test_oss.cpp
+        workflow/test_rabbitmq.cpp
 )
 
 # 为可执行文件启用 AddressSanitizer
@@ -190,5 +208,18 @@ target_link_libraries(cpp01_02
         ${LOG4CPP_LIBRARIES}
         ${OPENSSL_LIBRARIES}
         workflow  # 手动链接 workflow 库
+        wfrest
         ${LIBRT}
+        rt
+        ${OSS_SDK_LIBRARY}
+        ${CURL_LIBRARY}
+        ${CRYPTO_LIBRARY}
+        Threads::Threads
+        ${SIMPLE_AMQP_CLIENT_LIBRARY}
+        rt
+        lz4
+        snappy
+        crypt
+        ${SRPC_LIBRARY}
+        ${Protobuf_LIBRARIES}
 )

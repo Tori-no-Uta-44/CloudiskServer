@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[]) {
 	auto beforeTime = std::chrono::steady_clock::now();
-	WF_test03_2();
+	test_rabbitmq();
 	auto afterTime = std::chrono::steady_clock::now();
 	double duration_second = std::chrono::duration<double>(afterTime - beforeTime).count();
 	std::cout << duration_second << "秒" << std::endl;

@@ -122,4 +122,10 @@ void WF_test02_04();
 void WF_test03_1();
 
 void WF_test03_2();
+
+int test_wfrest();
+
+void ossTest();
+
+int test_rabbitmq();
 #endif //DAY01_H
